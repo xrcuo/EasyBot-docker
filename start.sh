@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf /wow/wwwroot
-cp -a /opt/EasyBot/wwwroot* /wow/wwwroot
+rm -rf /data/wwwroot
+cp -a /opt/EasyBot/wwwroot* /data/wwwroot
 
 /opt/EasyBot/EasyBot
