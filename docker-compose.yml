@@ -1,0 +1,18 @@
+version: '3'
+services:
+  easybot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: easybot
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always
+    ports:
+      - "6099:6099"
+      - "3637:5000"
+      - "4357:5001"
+    volumes:
+      # - ./ntqq/config:/app/napcat/config
+      # - ./ntqq/qq:/root/.config/QQ
+      - ./EasyBot:/data
