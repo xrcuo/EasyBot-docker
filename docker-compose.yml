@@ -2,10 +2,13 @@ version: '3'
 services:
   easybot:
     build:
-      context: .
+      context: ./ntqq
       dockerfile: Dockerfile
     container_name: easybot
     environment:
+      - ACCOUNT=3327481674
+      - WS_ENABLE=true
+      - WEBUI_TOKEN=wscc
       - TZ=Asia/Shanghai
     restart: always
     ports:
@@ -13,6 +16,6 @@ services:
       - "3637:5000"
       - "4357:5001"
     volumes:
-      # - ./ntqq/config:/app/napcat/config
-      # - ./ntqq/qq:/root/.config/QQ
+      - ./ntqq/config:/app/napcat/config
+      - ./ntqq/qq:/root/.config/QQ
       - ./EasyBot:/data
