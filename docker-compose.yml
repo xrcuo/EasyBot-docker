@@ -8,14 +8,31 @@ services:
     environment:
       - ACCOUNT=3327481674
       - WS_ENABLE=true
+      - TOKEN=123
       - WEBUI_TOKEN=wscc
-      - TZ=Asia/Shanghai
+      - WEB_HOST=http://0.0.0.0:5000
+
     restart: always
-    ports:
-      - "6099:6099"
-      - "3637:5000"
-      - "4357:5001"
+    networks:
+      priv_net:
+        ipv4_address: 192.168.31.64
+        #ipv6_address: fd12:41:e237:6905::0506
+    dns: 192.168.31.4
     volumes:
-      - ./ntqq/config:/app/napcat/config
-      - ./ntqq/qq:/root/.config/QQ
+      - ./qq/config:/app/napcat/config
+      - ./qq/qq:/root/.config/QQ
       - ./EasyBot:/data
+
+networks:
+  priv_net:
+    #enable_ipv6: true
+    driver: macvlan
+    driver_opts:
+      parent: ens18
+    ipam:
+      config:
+        - subnet: 192.168.31.0/24
+          gateway: 192.168.31.1
+          # ip_range: 192.168.5.6/32
+          #- subnet: fd12:41:e237:6905::/64
+          #  gateway: fd12:41:e237:6905::11
