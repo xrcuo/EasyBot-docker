@@ -23,11 +23,9 @@ RUN echo "${TZ}" > /etc/timezone \
 
 WORKDIR /opt/EasyBot
 
-RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.1.0/EasyBot-Linux-1.1.0.tar.gz \
-       && tar -zxvf EasyBot-Linux-1.1.0.tar.gz \
-       && rm EasyBot-Linux-1.1.0.tar.gz \
-       && chmod +x /opt/EasyBot/EasyBot \
-       && ln -s /opt/EasyBot/EasyBot /usr/bin/EasyBot  
+RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
+       && tar -vxf EasyBot_linux_1_1_0_fix2.tar \
+       && rm EasyBot_linux_1_1_0_fix2.tar 
 
 
 COPY start.sh /opt/start.sh
