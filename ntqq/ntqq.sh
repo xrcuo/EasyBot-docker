@@ -77,6 +77,16 @@ cat <<EOF > $CONFIG_PATH
 EOF
 fi
 
+
+FILE="/app/napcat/config/onebot11.json"
+if [ -e "$FILE" ]; then
+    echo "$FILE has been deleted."
+else
+    cp -a /opt/config* /app/napcat/
+    echo "$FILE does not exist."
+fi
+
+
 FILE="/tmp/.X1-lock"
 if [ -e "$FILE" ]; then
     rm -rf "$FILE"

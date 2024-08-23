@@ -53,6 +53,7 @@ RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux
        && chmod +x /app/EasyBot/EasyBot     
 
 COPY start.sh /opt/start.sh
+COPY ./config /opt/config
 COPY ntqq.sh /opt/ntqq.sh
 RUN    chmod +x /opt/start.sh \
        && chmod +x /opt/ntqq.sh

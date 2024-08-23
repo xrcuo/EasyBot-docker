@@ -52,17 +52,7 @@ EOF
 fi
 
 
-# 定义要删除的目录路径
-FILE="/data/wwwroot"
-# 判断目录是否存在
-if [ -e "$FILE" ]; then
-    # 如果存在，则删除
-    rm -rf "$FILE"
-    echo "$FILE has been deleted."
-else
-    echo "$FILE does not exist."
-fi
-
+rm -rf /data/wwwroot  # 删除/data/wwwroot目录
 # 将/app/EasyBot/wwwroot*目录复制到/data/wwwroot目录
 cp -a /app/EasyBot/wwwroot* /data/wwwroot
 
