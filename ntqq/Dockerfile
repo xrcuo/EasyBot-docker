@@ -4,24 +4,13 @@ RUN sed -i "s,//.*.ubuntu.com,//mirrors.tuna.tsinghua.edu.cn,g" /etc/apt/sources
        && apt-get update \
        && apt upgrade -y \
        && apt-get install -y \
-       libnss3 \   
-       libnotify4 \
-       libsecret-1-0 \
-       libgbm1 \
-       xvfb \
-       libasound2 \
-       fonts-wqy-zenhei \
-       gnutls-bin \ 
-       libglib2.0-dev \
-       libdbus-1-3 \
-       libgtk-3-0 \
-       libxss1 \
-       libxtst6 \
-       libatspi2.0-0 \
-       libx11-xcb1 \
-       ffmpeg \
+       zip \
        unzip \
-       dbus-user-session \
+       jq \
+       xvfb \
+       libnss3 \
+       libgbm1 \
+       libasound2 \
        wget \
        ntpdate \
        net-tools \
@@ -42,25 +31,26 @@ RUN echo "${TZ}" > /etc/timezone \
        && apt install -y tzdata \ 
        && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/v1.6.7/NapCat.linux.x64.zip \
-       && unzip -q NapCat.linux.x64.zip \
-       && mv NapCat.linux.x64 napcat \
-       && rm NapCat.linux.x64.zip
 
 # 安装Linux QQ
-RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_amd64_01.deb \
-       && dpkg -i --force-depends linuxqq.deb && rm linuxqq.deb \
+ENV QQNT=3.2.12_240819
+RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${QQNT}_amd64_01.deb \
+       && apt update \
+       && apt install -f -y ./linuxqq.deb && rm linuxqq.deb \
        && echo "(async () => {await import('file:///app/napcat/napcat.mjs');})();" > /opt/QQ/resources/app/app_launcher/index.js
 
 
-WORKDIR /app/EasyBot
-RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.1.0/EasyBot-Linux-1.1.0.tar.gz \
-       && tar -zxvf EasyBot-Linux-1.1.0.tar.gz \
-       && rm EasyBot-Linux-1.1.0.tar.gz \
-       && chmod +x /app/EasyBot/EasyBot \
-       && ln -s /app/EasyBot/EasyBot /usr/bin/EasyBot  
+WORKDIR /app/napcat
+ENV napcat=v2.2.4
+RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/${napcat}/NapCat.Shell.zip \
+       && unzip -q NapCat.Shell.zip \
+       && rm NapCat.Shell.zip
 
+WORKDIR /app/EasyBot
+RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
+       && tar -vxf EasyBot_linux_1_1_0_fix2.tar \
+       && rm EasyBot_linux_1_1_0_fix2.tar \
+       && chmod +x /app/EasyBot/EasyBot     
 
 COPY start.sh /opt/start.sh
 COPY ntqq.sh /opt/ntqq.sh
@@ -69,4 +59,4 @@ RUN    chmod +x /opt/start.sh \
 
 WORKDIR /data
 #ENTRYPOINT /opt/entrypoint.sh & /opt/start.sh
-ENTRYPOINT /opt/ntqq.sh & /opt/start.sh
+ENTRYPOINT  /opt/ntqq.sh & /opt/start.sh

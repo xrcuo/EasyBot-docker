@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 检查引号
 chech_quotes(){
     local input="$1"
     if [ "${input:0:1}" != '"' ] ; then
@@ -17,7 +16,6 @@ chech_quotes(){
 CONFIG_PATH=/app/napcat/config/onebot11_$ACCOUNT.json
 # 容器首次启动时执行
 if [ ! -f "$CONFIG_PATH" ]; then
-    # 如果WEBUI_TOKEN存在，则创建webui.json文件
     if [ "$WEBUI_TOKEN" ]; then
         echo "{\"port\": 6099,\"token\": \"$WEBUI_TOKEN\",\"loginRate\": 3}" > /app/napcat/config/webui.json
     fi
@@ -30,7 +28,7 @@ if [ ! -f "$CONFIG_PATH" ]; then
     : ${WS_ENABLE:='false'}
     : ${WSR_ENABLE:='false'}
     : ${WS_URLS:='[]'}
-    : ${HEART_INTERVAL:=30000}
+    : ${HEART_INTERVAL:=60000}
     : ${TOKEN:=''}
     : ${F2U_ENABLE:='false'}
     : ${DEBUG_ENABLE:='false'}
@@ -42,10 +40,8 @@ if [ ! -f "$CONFIG_PATH" ]; then
     : ${HTTP_HEART_ENABLE:='false'}
     : ${MUSIC_SIGN_URL:=''}
     : ${HTTP_SECRET:=''}
-    # 检查HTTP_URLS和WS_URLS是否包含引号
     HTTP_URLS=$(chech_quotes $HTTP_URLS)
     WS_URLS=$(chech_quotes $WS_URLS)
-    # 创建配置文件
 cat <<EOF > $CONFIG_PATH
 {
     "http": {
@@ -66,6 +62,10 @@ cat <<EOF > $CONFIG_PATH
       "enable": ${WSR_ENABLE},
       "urls": $WS_URLS
     },
+    "GroupLocalTime":{
+      "Record": false,
+      "RecordList": []
+    },
     "debug": ${DEBUG_ENABLE},
     "heartInterval": ${HEART_INTERVAL},
     "messagePostFormat": "$MESSAGE_POST_FORMAT",
@@ -77,31 +77,12 @@ cat <<EOF > $CONFIG_PATH
 EOF
 fi
 
-# 检查文件是否存在
 FILE="/tmp/.X1-lock"
 if [ -e "$FILE" ]; then
-    # 如果存在，则删除
     rm -rf "$FILE"
     echo "$FILE has been deleted."
 else
     echo "$FILE does not exist."
 fi
 
-# 修改权限
-chmod 777 /tmp &
-# 删除dbus的pid文件
-rm -rf /run/dbus/pid &
-# 创建dbus的目录
-mkdir -p /var/run/dbus &
-# 启动dbus
-dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address &
-# 启动Xvfb
-Xvfb :1 -screen 0 1080x760x16 +extension GLX +render &
-# 设置FFMPEG路径
-export FFMPEG_PATH=/usr/bin/ffmpeg
-# 设置DISPLAY环境变量
-export DISPLAY=:1
-# 进入目录
-cd /app/napcat
-# 启动qq
-qq --no-sandbox -q $ACCOUNT
+xvfb-run -a qq --no-sandbox -q $ACCOUNT
