@@ -3,7 +3,7 @@ FROM xrcuor/easybot:base
 
 
 WORKDIR /app/EasyBot
-RUN RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
+RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
        && tar -vxf EasyBot_linux_1_1_0_fix2.tar \
        && rm EasyBot_linux_1_1_0_fix2.tar \
        && chmod +x /app/EasyBot/EasyBot 
