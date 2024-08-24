@@ -1,7 +1,7 @@
 
 FROM xrcuor/easybot:base
 
-COPY NapCat.Shell.zip /app/napcat
+
 WORKDIR /app/EasyBot
 RUN RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
        && tar -vxf EasyBot_linux_1_1_0_fix2.tar \
@@ -10,7 +10,9 @@ RUN RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-L
 
 
 WORKDIR /app/napcat
-RUN   unzip -q NapCat.Shell.zip \
+ENV napcat=v2.2.5
+RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/${napcat}/NapCat.Shell.zip \
+       && unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
 # 安装Linux QQ
