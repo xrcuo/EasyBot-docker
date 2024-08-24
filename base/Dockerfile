@@ -33,7 +33,7 @@ RUN echo "${TZ}" > /etc/timezone \
        && apt update \ 
        && apt install -y tzdata \ 
        && rm -rf /var/lib/apt/lists/* \
-       && apt autoremove -y && \
+       && apt autoremove -y \
        && apt clean \
        && rm -rf \
        /var/lib/apt/lists/* \
