@@ -10,7 +10,7 @@ RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux
 
 
 WORKDIR /app/napcat
-ENV napcat=v2.2.18
+ENV napcat=v2.2.19
 RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/${napcat}/NapCat.Shell.zip \
        && unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
