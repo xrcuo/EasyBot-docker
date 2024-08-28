@@ -10,7 +10,7 @@ RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux
 
 
 WORKDIR /app/napcat
-ENV napcat=v2.2.5
+ENV napcat=v2.2.18
 RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/${napcat}/NapCat.Shell.zip \
        && unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
@@ -25,6 +25,9 @@ COPY ntqq.sh /opt/ntqq.sh
 COPY start.sh /opt/start.sh
 RUN chmod +x /opt/ntqq.sh \
        && chmod +x /opt/start.sh
+
+
+WORKDIR /data
 
 ENTRYPOINT  /opt/ntqq.sh & /opt/start.sh
 
