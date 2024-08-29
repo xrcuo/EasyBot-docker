@@ -33,6 +33,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: NapCatQQ
+        run: |
+          TAG=$(curl "https://api.github.com/repos/NapNeko/NapCatQQ/releases/latest" | jq -r '.tag_name')
+          wget https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip      
       - name: Build Docker Image and Push
         id: docker_build
         uses: docker/build-push-action@v2

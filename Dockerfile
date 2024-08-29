@@ -8,12 +8,11 @@ RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux
        && rm EasyBot_linux_1_1_0_fix2.tar \
        && chmod +x /app/EasyBot/EasyBot 
 
-
+COPY NapCat.Shell.zip /app/napcat
 WORKDIR /app/napcat
-ENV napcat=v2.2.19
-RUN  wget https://github.com/NapNeko/NapCatQQ/releases/download/${napcat}/NapCat.Shell.zip \
-       && unzip -q NapCat.Shell.zip \
+RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
+
 
 # 安装Linux QQ
 ENV QQNT=3.2.12_240819
