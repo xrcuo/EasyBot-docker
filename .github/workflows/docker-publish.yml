@@ -33,10 +33,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: NapCatQQ
+      - name: NapCatQQ EasyBot
         run: |
           TAG=$(curl "https://api.github.com/repos/NapNeko/NapCatQQ/releases/latest" | jq -r '.tag_name')
-          wget https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip      
+          wget https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip
+          T=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
+          wget -o EasyBot.tgz https://github.com/xrcuo/EasyBot-docker/releases/download/${T}/EasyBot.tgz
+
       - name: Build Docker Image and Push
         id: docker_build
         uses: docker/build-push-action@v2

@@ -1,11 +1,10 @@
 
 FROM xrcuor/easybot:base
 
-
+COPY EasyBot.tgz /app/EasyBot
 WORKDIR /app/EasyBot
-RUN wget https://github.com/xrcuo/EasyBot-docker/releases/download/EasyBot-Linux-1.0.7/EasyBot_linux_1_1_0_fix2.tar \
-       && tar -vxf EasyBot_linux_1_1_0_fix2.tar \
-       && rm EasyBot_linux_1_1_0_fix2.tar \
+RUN tar -vxf EasyBot.tgz \
+       && rm EasyBot.tgz \
        && chmod +x /app/EasyBot/EasyBot 
 
 COPY NapCat.Shell.zip /app/napcat
