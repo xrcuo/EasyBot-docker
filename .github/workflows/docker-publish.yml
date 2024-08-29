@@ -36,9 +36,12 @@ jobs:
       - name: NapCatQQ EasyBot
         run: |
           TAG=$(curl "https://api.github.com/repos/NapNeko/NapCatQQ/releases/latest" | jq -r '.tag_name')
-          wget -o /root/NapCat.Shell.zip https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip
+          wget -o NapCat.Shell.zip https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip
           T=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
-          wget -o /root/EasyBot.tgz https://github.com/xrcuo/EasyBot-docker/releases/download/${T}/EasyBot.tgz
+          wget -o EasyBot.tgz https://github.com/xrcuo/EasyBot-docker/releases/download/${T}/EasyBot.tgz
+          ll
+          ls
+
 
       - name: Build Docker Image and Push
         id: docker_build
