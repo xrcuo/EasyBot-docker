@@ -1,13 +1,13 @@
 
 FROM xrcuor/easybot:base
 
-COPY /root/EasyBot.tgz /app/EasyBot
+COPY ./EasyBot.tgz /app/EasyBot
 WORKDIR /app/EasyBot
 RUN tar -vxf EasyBot.tgz \
        && rm EasyBot.tgz \
        && chmod +x /app/EasyBot/EasyBot 
 
-COPY /root/NapCat.Shell.zip /app/napcat
+COPY ./NapCat.Shell.zip /app/napcat
 WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
