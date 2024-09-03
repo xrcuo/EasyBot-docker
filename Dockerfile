@@ -14,8 +14,8 @@ RUN unzip -q NapCat.Shell.zip \
 
 
 # 安装Linux QQ
-ENV QQNT=3.2.12_240819
-RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_${QQNT}_amd64_01.deb \
+ENV QQNT=3.2.12-27597
+RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/0724892e/linuxqq_${QQNT}_amd64.deb \
        && dpkg -i --force-depends linuxqq.deb && rm linuxqq.deb \
        && echo "(async () => {await import('file:///app/napcat/napcat.mjs');})();" > /opt/QQ/resources/app/app_launcher/index.js
 
