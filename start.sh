@@ -79,7 +79,7 @@ backup_source(){
 }
 
 main(){
-  backup_source
+ # backup_source
   appsettings
   rm -rf /data/wwwroot  # 删除/data/wwwroot目录
   # 将/app/EasyBot/wwwroot*目录复制到/data/wwwroot目录
