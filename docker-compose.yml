@@ -1,19 +1,23 @@
 version: '3'
 services:
   easybot:
-    build:
-      context: ./ntqq
-      dockerfile: Dockerfile
+    image: xrcuor/easybot
     container_name: easybot
     environment:
       - ACCOUNT=3327481674 # 机器人qq
       - WS_ENABLE=true # 正向 WS
       - TOKEN=1234 # access_token，可以为空
       - WEBUI_TOKEN=wscc # 登录密钥，默认是自动生成的随机登录密码
-      - WEB_HOST=http://0.0.0.0:5000
+      - SERVER_HOST=0.0.0.0 # Server服务器地址
+      - SERVER_PORT=8080 # Server服务器端口
     restart: always
+    networks:
+      priv_net:
+        ipv4_address: 192.168.31.64
+        #ipv6_address: fd12:41:e237:6905::0506
+    dns: 192.168.31.4
     volumes:
-      - ./napcat/config:/app/napcat/config
+      - ./ntqqi/config:/app/napcat/config
       - ./ntqqi/qq:/root/.config/QQ
       - ./EasyBot:/data
 
