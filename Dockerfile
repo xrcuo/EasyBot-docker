@@ -12,16 +12,15 @@ WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
-COPY ./qqnt.json /app/qqnt.json
 
 
 # 安装Linux QQ
-ENV QQNT=3.2.12-28327
-RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/f60e8252/linuxqq_${QQNT}_amd64.deb \
+ENV QQNT=3.2.13-29456
+RUN wget -O linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/e379390a/linuxqq_${QQNT}_amd64.deb \
        && dpkg -i --force-depends linuxqq.deb && rm linuxqq.deb \
        rm -rf /opt/QQ/resources/app/package.json && \
-       echo "(async () => {await import('file:///app/napcat/napcat.mjs');})();" > /opt/QQ/resources/app/loadNapCat.js \
-       && mv /app/qqnt.json /opt/QQ/resources/app/package.json
+       echo "(async () => {await import('file:///app/napcat/napcat.mjs');})();" > /opt/QQ/resources/app/loadNapCat.js && \
+       sed -i 's|"main": "[^"]*"|"main": "./loadNapCat.js"|' /opt/QQ/resources/app/package.json
 
 
 COPY ntqq.sh /opt/ntqq.sh
