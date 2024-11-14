@@ -38,7 +38,7 @@ jobs:
           TAG=$(curl "https://api.github.com/repos/NapNeko/NapCatQQ/releases/latest" | jq -r '.tag_name')
           wget https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip
           TH=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
-          wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot.tgz
+          wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux.zip
           ls
 
       - name: Build Docker Image and Push
@@ -60,3 +60,22 @@ jobs:
           short-description: ${{ github.event.repository.description }}
       - name: Image Digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: 清理Actions空间
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{ secrets.SGITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 0
+          retain_days: 6
+          #retain_days: ${{ github.event.inputs.action_days }}
+    
+      - name: 删除多余releases
+        uses: dev-drprasad/delete-older-releases@master
+        with:
+          repo: ${{ github.repository }}
+          keep_latest: 5
+        #keep_latest: ${{ github.event.inputs.rele }}
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.SGITHUB_TOKEN }}
