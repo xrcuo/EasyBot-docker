@@ -18,7 +18,7 @@ docker run -d \
 xrcuor/easybot
 
 
-### docker-compose 运行
+# docker-compose 运行
 
 创建 `docker-compose.yml` 文件
 ```yaml
