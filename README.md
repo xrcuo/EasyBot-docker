@@ -16,7 +16,7 @@ docker run -d \
 --name easybot \
 --restart=always \
 xrcuor/easybot
-
+```
 
 # docker-compose 运行
 
