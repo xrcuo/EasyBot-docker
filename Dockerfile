@@ -12,7 +12,8 @@ WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
-
+RUN apt-get update -y \
+  && apt-get install -y jq xauth procps
 
 
 # 安装Linux QQ
