@@ -1,8 +1,5 @@
 FROM xrcuor/easybot:base
 
-COPY ./EasyBot-Linux.zip /app/EasyBot/EasyBot-Linux.zip
-
-
 COPY ./NapCat.Shell.zip /app/napcat/NapCat.Shell.zip
 WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
