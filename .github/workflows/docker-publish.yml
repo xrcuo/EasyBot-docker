@@ -37,10 +37,6 @@ jobs:
         run: |
           TAG=$(curl "https://api.github.com/repos/NapNeko/NapCatQQ/releases/latest" | jq -r '.tag_name')
           wget https://github.com/NapNeko/NapCatQQ/releases/download/${TAG}/NapCat.Shell.zip
-          TH=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
-          wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux.zip
-          ls
-
       - name: Build Docker Image and Push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -49,7 +45,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.envs.outputs.tags }}
       - name: Update Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
