@@ -5,13 +5,13 @@ WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
-COPY EasyBot-Linux_amd64.zip EasyBot-Linux-arm64.zip /app/EasyBot/
+COPY EasyBot-Linux-amd64.zip EasyBot-Linux-arm64.zip /app/EasyBot/
 
 WORKDIR /app/EasyBot
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
-  && unzip -q EasyBot-Linux_${arch}.zip \
+  && unzip -q EasyBot-Linux-${arch}.zip \
        && rm EasyBot-Linux-arm64.zip \
-       && rm EasyBot-Linux_amd64.zip \
+       && rm EasyBot-Linux-amd64.zip \
        && chmod +x /app/EasyBot/EasyBot 
 
 
