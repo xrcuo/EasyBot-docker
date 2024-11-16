@@ -17,14 +17,14 @@ RUN  sed -i "s,//.*.ubuntu.com,//mirrors.aliyun.com,g" /etc/apt/sources.list \
        && rm -rf /var/lib/apt/lists/*
 
 
+COPY EasyBot-Linux-amd64.zip EasyBot-Linux-arm64.zip /app/EasyBot/
+
 WORKDIR /app/EasyBot
-RUN TH=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name') \
-       && arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
-       && wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux-${arch}.zip \
-       && unzip -q EasyBot-Linux-${arch}.zip \
-          && rm EasyBot-Linux-arm64.zip \
-          && rm EasyBot-Linux-amd64.zip \
-          && chmod +x /app/EasyBot/EasyBot 
+RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
+  && unzip -q EasyBot-Linux-${arch}.zip \
+       && rm EasyBot-Linux-arm64.zip \
+       && rm EasyBot-Linux-amd64.zip \
+       && chmod +x /app/EasyBot/EasyBot 
 
 
 

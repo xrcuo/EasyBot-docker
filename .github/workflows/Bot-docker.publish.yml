@@ -44,6 +44,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - 
+        name: NapCatQQ EasyBot
+        run: |
+          cd ./Bot/
+          TH=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
+          wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux-arm64.zip
+          wget https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux-amd64.zip
+          ls     
       -
         name: Build and push by digest
         id: build
