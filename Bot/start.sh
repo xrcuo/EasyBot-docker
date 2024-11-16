@@ -85,8 +85,9 @@ main(){
   # 将/app/EasyBot/wwwroot*目录复制到/data/wwwroot目录
   cp -a /app/EasyBot/wwwroot* /data/wwwroot
 
-  # 运行EasyBot
-  /app/EasyBot/EasyBot
+  
 }
 
 main
+# 运行EasyBot
+/app/EasyBot/EasyBot.WebUI

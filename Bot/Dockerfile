@@ -24,7 +24,7 @@ RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
   && unzip -q EasyBot-Linux-${arch}.zip \
        && rm EasyBot-Linux-arm64.zip \
        && rm EasyBot-Linux-amd64.zip \
-       && chmod +x /app/EasyBot/EasyBot 
+       && chmod +x /app/EasyBot/EasyBot.WebUI
 
 
 
