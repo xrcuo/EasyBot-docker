@@ -5,14 +5,13 @@ WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
-
+COPY EasyBot-Linux_amd64.zip EasyBot-Linux-arm64.zip /app/EasyBot/
 
 WORKDIR /app/EasyBot
-RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
-      TH=$(curl "https://api.github.com/repos/xrcuo/EasyBot-docker/releases/latest" | jq -r '.tag_name')
-RUN curl -o EasyBot-Linux.zip https://github.com/xrcuo/EasyBot-docker/releases/download/${TH}/EasyBot-Linux_${arch}.zip
-RUN unzip -q EasyBot-Linux.zip \
-       && rm EasyBot-Linux.zip \
+RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
+  && unzip -q EasyBot-Linux_${arch}.zip \
+       && rm EasyBot-Linux-arm64.zip \
+       && rm EasyBot-Linux_amd64.zip \
        && chmod +x /app/EasyBot/EasyBot 
 
 
