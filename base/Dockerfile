@@ -6,26 +6,25 @@ RUN sed -i "s,//.*.ubuntu.com,//mirrors.tuna.tsinghua.edu.cn,g" /etc/apt/sources
        && apt-get install -y \
        libnss3 \
        libnotify4 \
-      libsecret-1-0 \
-     libgbm1 \
-    libasound2 \
-    fonts-wqy-zenhei \
-    gnutls-bin \
-    libglib2.0-dev \
-    libdbus-1-3 \
-    libgtk-3-0 \
-    libxss1 \
-    libxtst6 \
-    libatspi2.0-0 \
-    libx11-xcb1 \
-    ffmpeg \
-    unzip \
-    dbus-user-session \
-    curl \
-   jq \
-    gosu \
+       libsecret-1-0 \
+       libgbm1 \
        xvfb \
+       libasound2 \
+       fonts-wqy-zenhei \
+       gnutls-bin \
+       libglib2.0-dev \
+       libdbus-1-3 \
+       libgtk-3-0 \
+       libxss1 \
+       libxtst6 \
+       libatspi2.0-0 \
+       libx11-xcb1 \
+       ffmpeg \
        unzip \
+       dbus-user-session \
+       curl \
+       jq \
+       gosu \
        wget \
        dotnet-runtime-8.0 \
        aspnetcore-runtime-8.0 
