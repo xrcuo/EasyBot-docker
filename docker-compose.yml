@@ -1,36 +1,17 @@
 version: '3'
 services:
   easybot:
-    image: xrcuor/easybot
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: easybot
     environment:
-      - ACCOUNT=3327481674 # 机器人qq
-      - WS_ENABLE=true # 正向 WS
-      - TOKEN=1234 # access_token，可以为空
-      - WEBUI_TOKEN=wscc # 登录密钥，默认是自动生成的随机登录密码
-      - SERVER_HOST=0.0.0.0 # Server服务器地址
-      - SERVER_PORT=8080 # Server服务器端口
+      - NAPCAT_UID=0
+      - NAPCAT_GID=0
     restart: always
-    networks:
-      priv_net:
-        ipv4_address: 192.168.31.64
-        #ipv6_address: fd12:41:e237:6905::0506
-    dns: 192.168.31.4
+    ports:
+      - "5000:5000"
     volumes:
-      - ./ntqqi/config:/app/napcat/config
-      - ./ntqqi/qq:/root/.config/QQ
+      - ./napcat/config:/app/napcat/config
+      - ./napcat/qq:/root/.config/QQ
       - ./EasyBot:/data
-
-networks:
-  priv_net:
-    #enable_ipv6: true
-    driver: macvlan
-    driver_opts:
-      parent: ens18
-    ipam:
-      config:
-        - subnet: 192.168.31.0/24
-          gateway: 192.168.31.1
-          # ip_range: 192.168.5.6/32
-          #- subnet: fd12:41:e237:6905::/64
-          #  gateway: fd12:41:e237:6905::11
