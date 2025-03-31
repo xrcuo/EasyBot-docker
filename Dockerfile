@@ -6,17 +6,18 @@ WORKDIR /app/napcat
 RUN unzip -q NapCat.Shell.zip \
        && rm NapCat.Shell.zip
 
-COPY EasyBot-Linux-1.3.4.zip /app/EasyBot/
+COPY EasyBot-Linux-amd64.zip /app/EasyBot/
 WORKDIR /app/EasyBot
-RUN unzip -q EasyBot-Linux-1.3.4.zip \
-    && rm EasyBot-Linux-1.3.4.zip \
-    && chmod +x /app/EasyBot/EasyBot 
+RUN unzip -q EasyBot-Linux-amd64.zip \
+    && rm EasyBot-Linux-amd64.zip \
+    && chmod +x /app/EasyBot/EasyBot \
+    && chmod +x /app/EasyBot/EasyBot.WebUI
 
 
 RUN useradd --no-log-init -d /app napcat
 # 安装Linux QQ
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
-curl -o linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/a5519e17/linuxqq_3.2.15-31363_${arch}.deb && \
+curl -o linuxqq.deb https://dldir1.qq.com/qqfile/qq/QQNT/4c192ba9/linuxqq_3.2.16-32869_${arch}.deb && \
     dpkg -i --force-depends linuxqq.deb && rm linuxqq.deb && \
     echo "(async () => {await import('file:///app/napcat/napcat.mjs');})();" > /opt/QQ/resources/app/loadNapCat.js && \
     sed -i 's|"main": "[^"]*"|"main": "./loadNapCat.js"|' /opt/QQ/resources/app/package.json

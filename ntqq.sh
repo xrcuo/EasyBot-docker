@@ -16,6 +16,27 @@ if [ ! -f "${CONFIG_PATH}" ] && [ -n "${WEBUI_TOKEN}" ]; then
 EOF
 fi
 
+# 删除字符串两端的引号
+remove_quotes() {
+    local str="$1"
+    local first_char="${str:0:1}"
+    local last_char="${str: -1}"
+
+    if [[ ($first_char == '"' && $last_char == '"') || ($first_char == "'" && $last_char == "'") ]]; then
+        # 两端都是双引号
+        if [[ $first_char == '"' ]]; then
+            str="${str:1:-1}"
+        # 两端都是单引号
+        else
+            str="${str:1:-1}"
+        fi
+    fi
+    echo "$str"
+}
+
+if [ -n "${MODE}" ]; then
+    cp /app/templates/$MODE.json /app/napcat/config/onebot11.json
+fi
 
 rm -rf "/tmp/.X1-lock"
 
@@ -32,5 +53,8 @@ sleep 2
 export FFMPEG_PATH=/usr/bin/ffmpeg
 export DISPLAY=:1
 cd /app/napcat
-ACCOUNT=$(ls /app/napcat/config/ | grep -oE '[1-9][0-9]{4,12}' | head -n 1)
-gosu napcat /opt/QQ/qq --no-sandbox -q $ACCOUNT
+if [ -n "${ACCOUNT}" ]; then
+    gosu napcat /opt/QQ/qq --no-sandbox -q $ACCOUNT
+else
+    gosu napcat /opt/QQ/qq --no-sandbox
+fi
